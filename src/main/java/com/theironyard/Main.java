@@ -1,5 +1,8 @@
 package com.theironyard;
 
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
 /**
  * As we move into writing more complex software we will begin to compose our
  * applications using many classes. Each class is dedicated to some purpose. The
@@ -41,6 +44,7 @@ package com.theironyard;
 public class Main {
 
     public static void main(String[] args) {
+        DecimalFormat df2 = new DecimalFormat("000000.00000");
         /*
             It is assumed that you have already implemented the MenuService and
             ConversionService classes. Now follow the instructions below to
@@ -57,18 +61,18 @@ public class Main {
          */
 
         // todo: Create a new instance of the Scanner class. It should read from System.in.
-
+        Scanner scan = new Scanner(System.in);
 
         // todo: Configure the Scanner instance to use a newline (\n) character as its delimiter
-
+        scan.useDelimiter("\n");
 
 
         // todo: Create a new instance of the ConversionService
-
+        ConversionService conversion = new ConversionService();
 
 
         // todo: Create a new instance of the MenuService. Pass the Scanner instance you created earlier into the MenuService's constructor
-
+        MenuService menuService = new MenuService(scan);
 
 
         /*
@@ -88,7 +92,7 @@ public class Main {
             returns a double number that we will be converting.
          */
         // todo: Invoke the MenuService's promptForWeight() method.
-
+       double weight = menuService.promptForWeight();
 
 
         /*
@@ -101,11 +105,11 @@ public class Main {
             simpler.
          */
         // todo: Invoke the MenuService's promptForFromUnit() method.
-
+       Weight from = menuService.promptForFromUnit(conversion.listUnits());
 
 
         // todo: Invoke the MenuService's promptForToUnit() method.
-
+       Weight to = menuService.promptForToUnit(conversion.listUnits());
 
 
         /*
@@ -117,9 +121,8 @@ public class Main {
             ConversionService's convert() method.
          */
         // todo: Invoke the ConversionService's convert() method.
-
-
-
+       double converted = conversion.convert(weight, from, to);
+      ;
         /*
             At long last we know the weight being converted, the to and from
             units, and the converted value. By passing each of these to the
@@ -127,7 +130,7 @@ public class Main {
             and end the program.
          */
         //todo: Print the answer using the MenuService's printAnswer() method
-
+        menuService.printAnswer(weight,from,converted,to);
 
 
     }
